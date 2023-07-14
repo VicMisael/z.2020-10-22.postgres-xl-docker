@@ -88,6 +88,15 @@ services:
       - db_a
     healthcheck:
       test: ["CMD", "docker-healthcheck-data"]
+  pgpool:
+    image: smirart/pgpool:latest
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./pgpool.conf:/etc/pgpool/pgpool.conf
+    restart: always
+    networks:
+      - db_b
 volumes:
   db_gtm_1: {}
   db_coord_1: {}

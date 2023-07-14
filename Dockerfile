@@ -1,6 +1,6 @@
 #===============================================================================
 # FROMFREEZE docker.io/library/debian:9
-FROM ubuntu
+FROM debian:12
 
 ARG PG_HOME=/var/lib/postgresql
 ARG PG_LIB=/usr/local/lib/postgresql
@@ -8,13 +8,14 @@ ARG PG_USER=postgres
 #-------------------------------------------------------------------------------
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
+        iproute2 \
         bison \
         build-essential \
         daemontools \
         flex \
         libreadline-dev \
         rsync \
-        netcat \
+        netcat-traditional \
         zlib1g-dev && \
     rm -rf /var/lib/apt/lists/*
 
