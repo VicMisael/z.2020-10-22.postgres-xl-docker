@@ -28,6 +28,8 @@ services:
       - db_coord_1:/var/lib/postgresql
     depends_on:
       - db_gtm_1
+      - db_data_1
+      - db_data_2
     networks:
       - db_a
       - db_b
@@ -47,9 +49,12 @@ services:
       - db_coord_2:/var/lib/postgresql
     depends_on:
       - db_gtm_1
+      - db_data_1
+      - db_data_2
     networks:
       - db_a
       - db_b
+      - default
     healthcheck:
       test: ["CMD", "docker-healthcheck-coord"]
   db_data_1:
@@ -97,6 +102,13 @@ services:
     restart: always
     networks:
       - db_b
+      - default
+    depends_on:
+      - db_coord_1
+      - db_coord_2
+      - db_data_1
+      - db_data_2
+
 volumes:
   db_gtm_1: {}
   db_coord_1: {}
